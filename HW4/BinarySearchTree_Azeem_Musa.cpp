@@ -12,52 +12,87 @@
 #include <iostream>
 #include <vector>
 
+// Struct to represent node in tree
+struct node{
+    // Struct to represent a single node in the BST
+    int val = 0;
+    node *left = nullptr;
+    node *right = nullptr;
+};
+
 // Class header
 class BST {
     private:
-        struct node{
-            // Struct to represent a single node in the BST
-            int val = 0;
-            node *left = nullptr;
-            node *right = nullptr;
-        };
+        node *root;                 // Root Node
 
-        node *root;
+        node* insert(node *n, int val);
+        node* remove(node *n, int key);
+        // int search(node *n, int key, &std::vector<int> traversed) const;
+        void remove_all(node *n);
 
     public:
+
         BST();
         ~BST();
         int insert(int val);
         int remove(int val);
-        std::vector<int> search(int val, int &found) const;
+        // std::vector<int> search(int val, int &found) const;
 };
 
-BST::BST() : root = nullptr {}
+BST::BST() : root(nullptr) {}      // Default Constructor
 
-bool BST::insert(int val){
-    /*
-        Insert value into binay search tree
-        If tree is empty, this value becomes the root node
+// int BST::insert(int val){
+//     /*
+//         Insert value into binay search tree
+//         If tree is empty, this value becomes the root node
 
-        Parameters:
-            val (int)   :   value to add to the tree
-        Returns:
-            int         :   returns 0 if successful, 1 if not
-    */
+//         Parameters:
+//             val (int)   :   value to add to the tree
+//         Returns:
+//             int         :   returns 0 if successful, 0 if not
+//     */
 
-    if (!root) {
-        // If tree is empty, create root node
-        root = new node;
-        node->val = val;
-        return 0
+//     if (!root) {
+//         // If tree is empty, create root node
+//         root = new node;
+//         node->val = val;
+//         return 0;
+//     }
+
+//     // If there are already nodes in the tree, call recursive function to insert
+//     insert(root, val);
+//     return 0;
+// }
+
+// node* BST::insert(node* n, int val){
+//     if (!n){
+//         // Reach empty node, return value
+//         n = new node;
+//         n.val = val;
+//     }
+//     if (val < n->val){
+//         // If value is less than current node, go left
+//         n->left = insert(n->left, val);
+//     }
+//     else {
+//         // If value is greater than current, go right
+//         n->right = insert(n->right, val);
+//     }
+//     return n;
+// }
+
+void BST::remove_all(node *n){
+    if (!n) {
+        return;
     }
-
-    // insert into tree
+    remove_all(n->left);
+    remove_all(n->right);
+    delete n;
 }
 
-
 BST::~BST(){
-    // del all nodes
+    // delete all nodes
+    remove_all(root);
 }
 
 #endif
