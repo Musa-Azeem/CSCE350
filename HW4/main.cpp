@@ -11,5 +11,6 @@ int main(int argv, char **argc){
     b.insert(15);
     b.insert(13);
     b.insert(9);
+    b.insert(13);
     b.print_in_order();
 }

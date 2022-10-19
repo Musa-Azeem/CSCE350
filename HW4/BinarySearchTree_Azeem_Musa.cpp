@@ -12,8 +12,6 @@
 #include <iostream>
 #include <vector>
 
-
-
 // Struct to represent node in tree
 struct node{
     // Struct to represent a single node in the BST
@@ -22,7 +20,7 @@ struct node{
     node *right = nullptr;
 };
 
-// Class header
+// Binary Search Tree Class
 class BST {
     private:
         node* root;                 // Root Node
@@ -30,6 +28,10 @@ class BST {
         node* remove(node *n, int key);
 
         node* insert(node* n, int val){
+            /*
+                Recursive function to traverse tree and insert value in the
+                correct location
+            */
             if (!n){
                 // Reach empty node, return value
                 n = new node;
@@ -50,18 +52,28 @@ class BST {
         // void remove_all(node *n);
 
         void remove_all(node* n){
+            /*
+            Recursive function to deallocate memory for all nodes in tree
+            */
             if (!n) {
+                // Reach end of branch
                 return;
             }
+            // Remove all nodes in left and right children
             remove_all(n->left);
             remove_all(n->right);
             delete n;
         };
 
         void print_in_order(node* n){
+            /*
+                Recursive function to print the tree values in order
+            */
             if (!n){
+                // Reach end of branch
                 return;
             }
+            // First print all values to the left
             print_in_order(n->left);
             // std::cout << n->val << " ";
 
@@ -73,6 +85,8 @@ class BST {
                 std::cout << n->val << ":  " << "  left: " << n->left->val << std::endl;
             else
                 std::cout << n->val << ":  " << std::endl;
+
+            // Then print all values to the right
             print_in_order(n->right);
         }
 
@@ -81,7 +95,9 @@ class BST {
         BST() : root(nullptr) {};      // Default Constructor
 
         ~BST(){
-            // delete all nodes
+            /*
+                Destructor deletes all nodes
+            */
             remove_all(root);
         };
 
@@ -112,6 +128,12 @@ class BST {
         // std::vector<int> search(int val, int &found) const;
 
         void print_in_order(){
+            /*
+                Print all values in the tree in order
+
+                Parameters: None
+                Returns:    None
+            */
             print_in_order(root);
             std::cout << std::endl;
         };
