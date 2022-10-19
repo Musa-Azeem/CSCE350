@@ -28,18 +28,27 @@ class BST {
         node* insert(node *n, int val);
         node* remove(node *n, int key);
         // int search(node *n, int key, &std::vector<int> traversed) const;
-        void remove_all(node *n);
+        // void remove_all(node *n);
+        void remove_all(node *n){
+            if (!n) {
+                return;
+            }
+            remove_all(n->left);
+            remove_all(n->right);
+            delete n;
+        };
 
     public:
-
-        BST();
-        ~BST();
+        BST() : root(nullptr) {};      // Default Constructor
+        ~BST(){
+            // delete all nodes
+            remove_all(root);
+        };
         int insert(int val);
         int remove(int val);
         // std::vector<int> search(int val, int &found) const;
 };
 
-BST::BST() : root(nullptr) {}      // Default Constructor
 
 // int BST::insert(int val){
 //     /*
@@ -81,18 +90,8 @@ BST::BST() : root(nullptr) {}      // Default Constructor
 //     return n;
 // }
 
-void BST::remove_all(node *n){
-    if (!n) {
-        return;
-    }
-    remove_all(n->left);
-    remove_all(n->right);
-    delete n;
-}
 
-BST::~BST(){
-    // delete all nodes
-    remove_all(root);
-}
+
+
 
 #endif
