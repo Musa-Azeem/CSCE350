@@ -25,9 +25,9 @@ class BST {
     private:
         node* root;                 // Root Node
 
-        node* remove(node *n, int key);
+        node* remove(node *n, const int key);
 
-        node* insert(node* n, int val){
+        node* insert(node* n, const int val){
             /*
                 Recursive function to traverse tree and insert value in the
                 correct location
@@ -47,6 +47,33 @@ class BST {
             }
             return n;
         };
+
+        node* search(node* n, const int key) const{
+            /*
+                Recursive function to search for a key in the tree
+                Function prints the value of every node traversed
+                If key is not found, a null node is returned
+                If key is found, the node containing the key is returned
+            */
+
+            if (!n) {
+                return nullptr;
+            }
+
+            // Print node values as traversed
+            std::cout << n->val << " ";
+            
+            // Compare value to node's value to find which direction to traverse
+            if (key == n->val) {
+                return n;
+            }
+            if (key < n->val){
+                return search(n->left, key);
+            }
+            else {
+                return search(n->right, key);
+            }
+        };  
 
         // int search(node *n, int key, &std::vector<int> traversed) const;
         // void remove_all(node *n);
@@ -101,31 +128,50 @@ class BST {
             remove_all(root);
         };
 
-        int insert(int val){
+        void insert(const int val){
             /*
-                Insert value into binay search tree
+                Insert value into binary search tree
                 If tree is empty, this value becomes the root node
 
                 Parameters:
                     val (int)   :   value to add to the tree
-                Returns:
-                    int         :   returns 0 if successful, 0 if not
             */
 
             if (!root) {
                 // If tree is empty, create root node
                 root = new node;
                 root->val = val;
-                return 0;
             }
 
             // If there are already nodes in the tree, call recursive function to insert
             insert(root, val);
-            return 0;
         };
 
-        int remove(int val);
-        // std::vector<int> search(int val, int &found) const;
+        void remove(const int val);
+
+        bool search(const int key) const {
+            /*
+                Search for a key in the binary search tree
+                Function will print the value of all nodes traversed during search
+                It will also print whether the key was found or not
+
+                Parameters:
+                    key (int)   :   value to search for
+
+                Returns:
+                    bool        :   true if value is found, false if not  
+            */
+           
+            std::cout << "Nodes Traversed: ";
+            if (search(root, key)) {
+                std::cout << "\nSearch key was found." << std::endl;
+                return true;
+            }
+            else{
+                std::cout << "\nSearch key was not found." << std::endl;
+                return false;
+            }
+        };  
 
         void print_in_order(){
             /*
