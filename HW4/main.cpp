@@ -34,6 +34,7 @@ int main(int argv, char **argc){
                 // Remove a value
                 std::cout << "Enter the value to remove from the tree: ";
                 std::cin >> input;
+                bst.remove(input);
                 break;
             case 3:
                 // Search for a value
