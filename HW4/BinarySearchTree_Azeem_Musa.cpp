@@ -83,35 +83,29 @@ class BST {
            using std::cout, std::endl;
             if (!n) {
                 // Value not in tree
-                cout << "null" <<endl;
                 return n;
             }
             if (key == n->val) {
-                cout << "key found " << n->val << endl;
                 // Value is found, so remove it: Three Cases
                 // Case 1: Node has no children - Just delete it
                 if (!n->left and !n->right) {
-                    cout << "no children" << endl;
                     delete n;
                     n = nullptr;
                     return n;
                 }
                 // Case 2: Node has one child - Replace node with its child
                 else if (!n->right){     // Node has left child
-                    cout << "left child" << endl;
                     node* tmp = n->left;
                     delete n;
                     n = nullptr;
                     return tmp;
                 }
                 else if (!n->left){ // Node has right child
-                    cout << "right child" << endl;
                     node* tmp = n->right;
                     delete n;
                     n = nullptr;
                     return tmp;
                 }
-                cout << "two children" << endl;
                 // Case 3: Node has two children
                     // Replace node with the minimum value of its right subtree
                     // Delete duplicate descendant
@@ -126,15 +120,12 @@ class BST {
             }
             if (key < n->val) {
                 // If key is less than current node, go left
-                cout << "left at " << n->val << endl;
                 n->left = remove(n->left, key);
             }
             else {
                 // If key is greater than current, go right
-                cout << "right at " << n->val << endl;
                 n->right = remove(n->right, key);
             }
-            cout << "done at " << n->val << endl;
             return n;
         };
 
