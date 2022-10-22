@@ -36,16 +36,7 @@ class BST {
             }
             // First print all values to the left
             print_in_order(n->left);
-            // std::cout << n->val << " ";
-
-            if(n->right && n->left)
-                std::cout << n->val << ":  " << "  left: " << n->left->val << "  right: " << n->right->val << std::endl;
-            else if (n->right)
-                std::cout << n->val << ":  " << "  right: " << n->right->val << std::endl;
-            else if (n->left)
-                std::cout << n->val << ":  " << "  left: " << n->left->val << std::endl;
-            else
-                std::cout << n->val << ":  " << std::endl;
+            std::cout << n->val << " ";
 
             // Then print all values to the right
             print_in_order(n->right);
@@ -80,7 +71,6 @@ class BST {
                 Recursive function to remove key value from tree
                 If the value is not found, nothing is done
             */
-           using std::cout, std::endl;
             if (!n) {
                 // Value not in tree
                 return n;
