@@ -104,7 +104,7 @@ class BST {
                 // Set value of current node with minimum value
                 n->val = tmp->val;
                 // Remove the duplicate in the right subtree of current node
-                remove(n->right, n->val);
+                n->right = remove(n->right, n->val);
                 return n;
                 
             }
