@@ -222,7 +222,7 @@ class BST {
             }
 
             // If not empty, call recursive function to remove
-            remove(root, key);
+            root = remove(root, key);
         }
 
 
