@@ -5,7 +5,18 @@
     This file implements a binary search tree class for CSCE 350 HW4
     
     Binary Search Tree Usage:
+        print_in_order() :  print the tree in order
+
+        insert(val) :       insert a value into the tree
+            val (int) :     integer value to insert into the tree
+        
+        remove(key) :       remove a value from the tree
+            key (int) :     integer value to remove from the tree
+
+        search(key) :       Search for a value in the tree
+            key (int) :     integer value to search for
 */
+
 #ifndef BINARY_SEARCH_TREE
 #define BINARY_SEARCH_TREE
 
@@ -36,6 +47,8 @@ class BST {
             }
             // First print all values to the left
             print_in_order(n->left);
+
+            // Pring current value
             std::cout << n->val << " ";
 
             // Then print all values to the right
@@ -72,42 +85,51 @@ class BST {
                 If the value is not found, nothing is done
             */
             if (!n) {
-                // Value not in tree
+                // Leaf node reached, value not in tree
                 return n;
             }
             if (key == n->val) {
                 // Value is found, so remove it: Three Cases
+
                 // Case 1: Node has no children - Just delete it
                 if (!n->left and !n->right) {
                     delete n;
                     n = nullptr;
                     return n;
                 }
+
                 // Case 2: Node has one child - Replace node with its child
-                else if (!n->right){     // Node has left child
+                // Node has left child
+                else if (!n->right){     
                     node* tmp = n->left;
                     delete n;
-                    n = nullptr;
                     return tmp;
                 }
-                else if (!n->left){ // Node has right child
+                // Node has right child
+                else if (!n->left){ 
                     node* tmp = n->right;
                     delete n;
-                    n = nullptr;
                     return tmp;
                 }
+
                 // Case 3: Node has two children
-                    // Replace node with the minimum value of its right subtree
-                    // Delete duplicate descendant
-                // Find minimum in right subtree of n
+                /*
+                    1) Find the minimum value in the right subtree of the node
+                    2) Replace node with the minimum value of its right subtree
+                    3) Delete duplicate descendant in the right subtree
+                */
+
+                // 1) Find minimum value in the right subtree of n
                 node* tmp = find_min(n->right);
-                // Set value of current node with minimum value
+
+                // 2) Set value of current node with minimum value
                 n->val = tmp->val;
-                // Remove the duplicate in the right subtree of current node
+
+                // 3) Remove the duplicate in the right subtree of current node
                 n->right = remove(n->right, n->val);
                 return n;
-                
             }
+
             if (key < n->val) {
                 // If key is less than current node, go left
                 n->left = remove(n->left, key);
@@ -153,9 +175,14 @@ class BST {
 
 
         node* find_min(node* n){
+            /*
+                Recursive function to find minumum value in a tree
+            */
             if (!(n->left)) {
+                // If node has no left child, it is the minimum
                 return n;
             }
+            // Keep going left
             return find_min(n->left);
         };
 
@@ -183,6 +210,18 @@ class BST {
                 Destructor deletes all nodes
             */
             remove_all(root);
+        };
+
+        
+        void print_in_order() {
+            /*
+                Print all values in the tree in order
+
+                Parameters: None
+                Returns:    None
+            */
+            print_in_order(root);
+            std::cout << std::endl;
         };
 
 
@@ -249,18 +288,6 @@ class BST {
                 return false;
             }
         };  
-
-
-        void print_in_order() {
-            /*
-                Print all values in the tree in order
-
-                Parameters: None
-                Returns:    None
-            */
-            print_in_order(root);
-            std::cout << std::endl;
-        };
 };
 
 #endif
